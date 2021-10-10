@@ -1,6 +1,7 @@
 package ru.dataart.academy.java;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TwoSums {
     /**
@@ -13,15 +14,24 @@ public class TwoSums {
      * Result - []
      */
     public int[] getTwoSum(int[] nums, int target) {
-        HashMap<Integer,Integer> map = new HashMap<>();
-        for(int i=0;i<nums.length;i++){
-            int complement = target-nums[i];
-            if(map.containsKey(complement)){
-                return new int[]{map.get(complement),i};
+        int[] targetNums = new int[2];
+        Map<Integer, Integer> hashTable = new HashMap<>();
+
+
+        if (nums.length < 2) {
+            return targetNums;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if(hashTable.containsKey(nums[i])){
+                targetNums[0] = nums[hashTable.get(nums[i])];
+                targetNums[1] = nums[i];
+                return targetNums;
             }else{
-                map.put(nums[i],i);
+                hashTable.put((target - nums[i]), i);
             }
         }
-        return new int[]{};
+
+        return targetNums;
     }
 }
